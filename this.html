@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        h1 {
+            color: #e74c3c;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out; /* Add smooth transition */
+        }
+        #response {
+            display: none;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        #valentineImage {
+            display: none;
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Will You Be My Valentine?</h1>
+        <button onclick="displayResponse('Yes')" id="yesButton">Yes!</button>
+        <button onclick="displayResponse('No')">No</button>
+        <p id="response"></p>
+        <img src="https://i.pinimg.com/736x/db/0d/e4/db0de473c6068aa00a5ac0a9c297305e.jpg" alt="Valentine Image" id="valentineImage">
+    </div>
+    <script>
+        var yesButtonSize = 16; // Initial button size
+        var customNoMessages = [
+            "Are you sure? 😔",
+            "Don't be shy. 😅",
+            "Think carefully. ",
+            "WEH?",
+            "Tuod bala ?",
+            "indi ka gid? "
+        ];
+        var images = [
+            "https://i.pinimg.com/736x/db/0d/e4/db0de473c6068aa00a5ac0a9c297305e.jpg",
+            "https://i.pinimg.com/736x/e1/8f/61/e18f61f39b36db9a32a12d14ba6beccf.jpg",
+            "https://i.pinimg.com/736x/bc/71/74/bc71748d038222bd68277f8c0574a2cf.jpg",
+            "https://dontgetserious.com/wp-content/uploads/2021/07/heart-memes.jpeg"
+            // Add more image URLs as needed
+        ];
+        var lastNoMessageIndex = -1; // Initial index
+        var currentImageIndex = 0; // Initial index for images
+        var valentineImage = document.getElementById('valentineImage');
+
+        // Function to change the image every 0.2 seconds
+        function changeImage() {
+            valentineImage.src = images[currentImageIndex];
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+        }
+
+        // Set interval to change image every 0.2 seconds
+        setInterval(changeImage, 200);
+
+        function displayResponse(response) {
+            var responseElement = document.getElementById('response');
+            var yesButton = document.getElementById('yesButton');
+
+            if (response === 'Yes') {
+                responseElement.innerText = 'Yay! See you on Feb. 14 :) <3';
+                valentineImage.style.display = 'block'; // Show the image
+            } else if (response === 'No') {
+                // Show the next message in the sequence
+                lastNoMessageIndex = (lastNoMessageIndex + 1) % customNoMessages.length;
+                responseElement.innerText = customNoMessages[lastNoMessageIndex];
+
+                yesButtonSize += 7; // Increase button size by 7 pixels
+                yesButton.style.fontSize = yesButtonSize + 'px'; // Set the new button size
+
+                // Show the response
+                responseElement.style.display = 'block';
+
+                // Hide the image when 'No' is clicked
+                valentineImage.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
